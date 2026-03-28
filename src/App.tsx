@@ -12,6 +12,7 @@ import { LicenseFAQPage }    from '@/pages/legal/LicenseFAQPage'
 import { HelpCenterPage }    from '@/pages/support/HelpCenterPage'
 import { StatusPage }        from '@/pages/support/StatusPage'
 import { ContactPage }       from '@/pages/support/ContactPage'
+import { CreatorStudioPage } from '@/pages/CreatorStudioPage'
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/support/help"       element={<HelpCenterPage />} />
           <Route path="/support/status"     element={<StatusPage />} />
           <Route path="/support/contact"    element={<ContactPage />} />
+          <Route path="/creator-studio"     element={<CreatorStudioPage />} />
         </Routes>
       </BrowserRouter>
     </div>
