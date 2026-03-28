@@ -17,7 +17,7 @@ import { CreatorStudioPage } from '@/pages/CreatorStudioPage'
 export default function App() {
   return (
     <div className="min-h-screen bg-background">
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/"                   element={<HomePage />} />
           <Route path="/sign-in"            element={<SignInPage />} />
