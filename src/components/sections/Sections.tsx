@@ -637,12 +637,21 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10 pt-8">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Torch Studio, Inc. All rights reserved.
-          </p>
-          <Badge variant="outline" className="border-white/20 text-muted-foreground text-xs">
-            Made for music, priced for people
-          </Badge>
+          <div className="flex flex-col gap-2 items-center">
+            <p className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} Torch Studio, Inc. All rights reserved.
+            </p>
+            <p className="text-xs text-muted-foreground border-t border-white/10 pt-2">
+              💡 This is a portfolio/mockup site. All music is royalty-free (CC0 license) and is for demonstration purposes only.
+              <br />
+              <a href="/legal/music" className="underline hover:text-foreground">
+                Music Attribution &amp; License Info
+              </a>
+            </p>
+            <Badge variant="outline" className="border-white/20 text-muted-foreground text-xs">
+              Made for music, priced for people
+            </Badge>
+          </div>
         </div>
       </div>
     </footer>

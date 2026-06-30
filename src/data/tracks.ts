@@ -15,8 +15,40 @@ export interface Track {
   addedDate: string
 }
 
-const sh = (n: number) => `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${n}.mp3`
-const cycle = (id: number) => sh(((id - 1) % 17) + 1)
+// Local royalty-free audio from public/audio/ directory
+// To add real music:
+// 1. Download royalty-free tracks from https://pixabay.com/music/ (CC0 license, no attribution needed)
+// 2. Save to public/audio/ with names: `genre-title.mp3`
+// 3. Update the audioFiles array below
+// 4. Run: npm run dev
+//
+// For mockup sites, Pixabay Music is ideal since it's CC0 (public domain)
+// Other options: Free Music Archive, Incompetech, YouTube Audio Library
+const audioFiles = [
+  '/audio/lofi-summer-glow.mp3',        // 1. Lo-Fi (Chill)
+  '/audio/lofi-cafe-static.mp3',        // 2. Lo-Fi (Chill)
+  '/audio/lofi-dusty-keys.mp3',         // 3. Lo-Fi (Melancholic)
+  '/audio/lofi-rain-window.mp3',        // 4. Lo-Fi (Chill)
+  '/audio/lofi-midnight-study.mp3',     // 5. Lo-Fi (Chill)
+  '/audio/lofi-hazy-morning.mp3',       // 6. Lo-Fi (Uplifting)
+  '/audio/lofi-bedroom-tape.mp3',       // 7. Lo-Fi (Melancholic)
+  '/audio/lofi-vinyl-crackle.mp3',      // 8. Lo-Fi (Chill)
+  '/audio/lofi-jazz-afternoon.mp3',     // 9. Lo-Fi (Uplifting)
+  '/audio/lofi-neon-lights.mp3',        // 10. Lo-Fi (Energetic)
+  '/audio/lofi-night-drive.mp3',        // 11. Lo-Fi (Chill)
+  '/audio/lofi-city-pulse.mp3',         // 12. Lo-Fi (Chill)
+  '/audio/hiphop-urban-vibes.mp3',      // 13. Hip-Hop
+  '/audio/ambient-peaceful.mp3',        // 14. Ambient
+  '/audio/electronic-neon.mp3',         // 15. Electronic
+  // ... additional tracks would cycle through
+]
+
+// Cycle through available audio files
+const cycle = (id: number) => audioFiles[(id - 1) % audioFiles.length]
+
+// Fallback URLs for testing without local files (comment out the above and uncomment below to use)
+// const sh = (n: number) => `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${n}.mp3`
+// const cycle = (id: number) => sh(((id - 1) % 17) + 1)
 
 export const tracks: Track[] = [
   // ── Lo-Fi (25) ─────────────────────────────────────────────────────────────
