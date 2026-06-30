@@ -28,7 +28,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const stored = localStorage.getItem(STORAGE_KEY)
       return stored ? JSON.parse(stored) : null
-    } catch {
+    } catch (error) {
+      if (import.meta.env.DEV) console.error('Failed to parse stored auth state:', error)
       return null
     }
   })
@@ -42,7 +43,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user])
 
   const signIn = async (email: string, _password: string): Promise<void> => {
-    // Mock delay
+    // DEMO ONLY: This is a mock authentication flow. Any email/password combination succeeds.
+    // Before connecting to a real backend, replace with proper OAuth 2.0 or JWT flow
+    // with server-issued httpOnly session cookies, never client-side localStorage.
     await new Promise((r) => setTimeout(r, 800))
     const loggedInUser: User = { ...MOCK_USER, email }
     setUser(loggedInUser)

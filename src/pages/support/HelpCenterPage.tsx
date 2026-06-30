@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Search, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { PageLayout } from '@/components/layout/PageLayout'
 import { SupportNav } from '@/components/support/SupportNav'
+import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 
 interface QA { q: string; a: string }
 interface Category { name: string; items: QA[] }
@@ -61,12 +62,12 @@ const allItems: (QA & { category: string })[] = categories.flatMap((c) =>
 export function HelpCenterPage() {
   const [rawSearch, setRawSearch] = useState('')
   const [search, setSearch] = useState('')
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const debouncedSetSearch = useDebouncedCallback((v: string) => setSearch(v), 300)
 
   const handleSearch = (v: string) => {
     setRawSearch(v)
-    if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => setSearch(v), 300)
+    debouncedSetSearch(v)
   }
 
   const filtered = search

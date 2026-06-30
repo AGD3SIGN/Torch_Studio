@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { PageLayout } from '@/components/layout/PageLayout'
 import { SupportNav } from '@/components/support/SupportNav'
+import { isValidEmail } from '@/lib/validation'
 import { cn } from '@/lib/utils'
 
 const SUBJECTS = [
@@ -36,7 +37,7 @@ export function ContactPage() {
     const e: FormErrors = {}
     if (!name.trim()) e.name = 'Full name is required.'
     if (!email.trim()) e.email = 'Email is required.'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Enter a valid email address.'
+    else if (!isValidEmail(email)) e.email = 'Enter a valid email address.'
     if (!subject) e.subject = 'Please select a subject.'
     if (!message.trim()) e.message = 'Message is required.'
     else if (message.trim().length < 20) e.message = 'Message must be at least 20 characters.'

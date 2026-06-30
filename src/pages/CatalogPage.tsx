@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   Search, Play, Pause, Download, SlidersHorizontal, X,
@@ -15,8 +15,10 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/sections/Sections'
 import { useAuth } from '@/context/AuthContext'
 import { useAudioPlayer } from '@/hooks/useAudioPlayer'
+import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { tracks, type Track } from '@/data/tracks'
 import { downloadTrack } from '@/utils/download'
+import { generateWaveformHeights } from '@/utils/waveform'
 import { cn } from '@/lib/utils'
 
 const GENRES = ['Lo-Fi','Hip-Hop','Ambient','Electronic','Indie Pop','Soul/R&B','Jazz','Cinematic','Folk','Trap','Funk','Classical']
@@ -41,13 +43,9 @@ const SORT_OPTIONS = [
 ]
 
 // Pre-computed waveform heights
-const waveHeights: Record<number, number[]> = {}
-tracks.forEach((t) => {
-  waveHeights[t.id] = Array.from({ length: 20 }, (_, i) => {
-    const seed = (t.id * 31 + i * 17) % 100
-    return 30 + (seed % 70)
-  })
-})
+const waveHeights: Record<number, number[]> = Object.fromEntries(
+  tracks.map((t) => [t.id, generateWaveformHeights(t.id)])
+)
 
 // Auth prompt modal
 function AuthPromptModal({ onClose }: { onClose: () => void }) {
@@ -393,12 +391,14 @@ export function CatalogPage() {
   const [page, setPage] = useState(1)
   const PAGE_SIZE = 30
 
-  // Debounce search
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const debouncedSetSearch = useDebouncedCallback((v: string) => {
+    setSearch(v)
+    setPage(1)
+  }, 300)
+
   const handleSearchChange = (v: string) => {
     setSearchRaw(v)
-    if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => { setSearch(v); setPage(1) }, 300)
+    debouncedSetSearch(v)
   }
 
   useEffect(() => {

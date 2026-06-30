@@ -17,6 +17,8 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { tracks as canonicalTracks } from '@/data/tracks'
+import { isValidEmail } from '@/lib/validation'
 import { cn } from '@/lib/utils'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -100,20 +102,9 @@ export function Features() {
 // CATALOG PREVIEW SECTION
 // ─────────────────────────────────────────────────────────────────────────────
 
-const tracks = [
-  { id: 1,  title: 'Summer Glow',      genre: 'Lo-Fi',      duration: '3:42', price: '$0.99', bpm: 87,  color: '#2D1B69' },
-  { id: 2,  title: 'Late Night Drive', genre: 'Ambient',    duration: '4:15', price: '$0.99', bpm: 72,  color: '#0F3460' },
-  { id: 3,  title: 'Rooftop Sessions', genre: 'Hip-Hop',    duration: '2:58', price: '$1.99', bpm: 95,  color: '#533483' },
-  { id: 4,  title: 'Golden Hour',      genre: 'Indie Pop',  duration: '3:31', price: '$0.99', bpm: 110, color: '#7C2D12' },
-  { id: 5,  title: 'Deep Roots',       genre: 'Soul',       duration: '4:44', price: '$1.99', bpm: 82,  color: '#1B4332' },
-  { id: 6,  title: 'Neon Fade',        genre: 'Electronic', duration: '5:02', price: '$2.99', bpm: 128, color: '#6B2D8B' },
-  { id: 7,  title: 'Midnight Smoke',   genre: 'Jazz',       duration: '4:28', price: '$1.99', bpm: 74,  color: '#1A3A4A' },
-  { id: 8,  title: 'Block Party',      genre: 'Trap',       duration: '2:44', price: '$1.99', bpm: 142, color: '#3B1F5E' },
-  { id: 9,  title: 'Open Road',        genre: 'Folk',       duration: '3:55', price: '$0.99', bpm: 90,  color: '#1F3D2B' },
-  { id: 10, title: 'Gravity Well',     genre: 'Cinematic',  duration: '5:30', price: '$2.99', bpm: 65,  color: '#1C2B4A' },
-  { id: 11, title: 'Velvet Season',    genre: 'R&B',        duration: '3:18', price: '$1.99', bpm: 88,  color: '#4A1A2C' },
-  { id: 12, title: 'Café Static',      genre: 'Lo-Fi',      duration: '2:51', price: '$0.99', bpm: 83,  color: '#2A3A1A' },
-]
+// Use the first 12 tracks from the canonical catalog for the homepage preview
+// This ensures the homepage always shows accurate, up-to-date data
+const tracks = canonicalTracks.slice(0, 12)
 
 const genres = ['All', 'Lo-Fi', 'Hip-Hop', 'Ambient', 'Indie Pop', 'Soul', 'Electronic', 'Jazz', 'Trap', 'Folk', 'Cinematic', 'R&B']
 
@@ -464,8 +455,6 @@ export function Testimonials() {
 // CTA BANNER SECTION
 // ─────────────────────────────────────────────────────────────────────────────
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
 export function CTABanner() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
@@ -474,7 +463,7 @@ export function CTABanner() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const trimmed = email.trim()
-    if (!EMAIL_RE.test(trimmed)) {
+    if (!isValidEmail(trimmed)) {
       setError('Please enter a valid email address.')
       return
     }
@@ -606,14 +595,14 @@ export function Footer() {
             </p>
             <div className="flex gap-3">
               {socialLinks.map(({ Icon, label }) => (
-                <a
+                <button
                   key={label}
-                  href="#"
+                  type="button"
                   className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-muted-foreground hover:bg-primary hover:text-white transition-all duration-200"
                   aria-label={label}
                 >
                   <Icon className="h-3.5 w-3.5" />
-                </a>
+                </button>
               ))}
             </div>
           </div>

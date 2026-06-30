@@ -13,6 +13,7 @@ interface UseAudioPlayerReturn {
 
 // Single global Audio instance shared across the app
 let globalAudio: HTMLAudioElement | null = null
+let endedHandler: (() => void) | null = null
 
 export function useAudioPlayer(): UseAudioPlayerReturn {
   const [playingId, setPlayingId] = useState<number | null>(null)
@@ -25,6 +26,10 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
     if (globalAudio) {
       globalAudio.pause()
       globalAudio.currentTime = 0
+      if (endedHandler) {
+        globalAudio.removeEventListener('ended', endedHandler)
+        endedHandler = null
+      }
     }
     if (timerRef.current) clearInterval(timerRef.current)
     setPlayingId(null)
@@ -36,6 +41,9 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
     if (globalAudio) {
       globalAudio.pause()
       globalAudio.currentTime = 0
+      if (endedHandler) {
+        globalAudio.removeEventListener('ended', endedHandler)
+      }
     }
     if (timerRef.current) clearInterval(timerRef.current)
 
@@ -64,11 +72,13 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
       }
     }, 200)
 
-    audio.addEventListener('ended', () => {
+    const onEnded = () => {
       if (timerRef.current) clearInterval(timerRef.current)
       setPlayingId(null)
       setProgress(0)
-    })
+    }
+    endedHandler = onEnded
+    audio.addEventListener('ended', onEnded)
   }, [])
 
   const pause = useCallback(() => {

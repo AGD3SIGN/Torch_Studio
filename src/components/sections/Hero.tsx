@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom'
 import { Badge } from '@/components/ui/badge'
 import { useAudioPlayer } from '@/hooks/useAudioPlayer'
 import { heroPreviewTracks } from '@/data/previewTracks'
+import { generateWaveformHeights } from '@/utils/waveform'
 import { cn } from '@/lib/utils'
 
-// Pre-computed waveform heights for hero tiles
-const heroWaveHeights: Record<number, number[]> = {}
-heroPreviewTracks.forEach((t) => {
-  heroWaveHeights[t.id] = Array.from({ length: 10 }, (_, i) => {
-    const seed = (t.id * 31 + i * 17) % 100
-    return 30 + (seed % 70)
-  })
-})
+// Pre-computed waveform heights for hero tiles (10 bars instead of 20)
+const heroWaveHeights: Record<number, number[]> = Object.fromEntries(
+  heroPreviewTracks.map((t) => [t.id, generateWaveformHeights(t.id, 10)])
+)
 
 export function Hero() {
   const { toggle, isPlaying, progress } = useAudioPlayer()

@@ -4,6 +4,7 @@ import { Flame, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/context/AuthContext'
+import { isValidEmail } from '@/lib/validation'
 import { toast } from 'sonner'
 
 function getPasswordStrength(pw: string): { label: string; color: string; width: string } {
@@ -52,9 +53,9 @@ export function SignInPage() {
     const e: Record<string, string> = {}
     if (mode === 'register' && !name.trim()) e.name = 'Full name is required'
     if (!email.trim()) e.email = 'Email is required'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Enter a valid email'
+    else if (!isValidEmail(email)) e.email = 'Enter a valid email'
     if (!password) e.password = 'Password is required'
-    else if (password.length < 6) e.password = 'Password must be at least 6 characters'
+    else if (password.length < 12) e.password = 'Password must be at least 12 characters'
     setErrors(e)
     return Object.keys(e).length === 0
   }

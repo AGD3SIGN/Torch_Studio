@@ -15,8 +15,7 @@ function NavLinkItem({ label, href, isHash, onClick }: {
   label: string
   href: string
   isHash: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick?: (e?: any) => void
+  onClick?: (e: React.MouseEvent) => void
 }) {
   const cls = 'px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150'
 
