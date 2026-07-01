@@ -2,6 +2,7 @@ export interface Track {
   id: number
   title: string
   artist: string
+  artistSource?: 'Pixabay' | 'Free Music Archive' | 'Incompetech' | 'Other'
   genre: string
   mood: 'Chill' | 'Energetic' | 'Dark' | 'Uplifting' | 'Melancholic'
   duration: string
@@ -18,12 +19,19 @@ export interface Track {
 // Local royalty-free audio from public/audio/ directory
 // To add real music:
 // 1. Download royalty-free tracks from https://pixabay.com/music/ (CC0 license, no attribution needed)
-// 2. Save to public/audio/ with names: `genre-title.mp3`
-// 3. Update the audioFiles array below
-// 4. Run: npm run dev
+// 2. Note the artist name from Pixabay (shown in download modal)
+// 3. Save to public/audio/ with names: `genre-title.mp3`
+// 4. Update the audioFiles array below
+// 5. Add artist name and source to each track in the tracks array (see examples below)
+// 6. Run: npm run dev
 //
 // For mockup sites, Pixabay Music is ideal since it's CC0 (public domain)
 // Other options: Free Music Archive, Incompetech, YouTube Audio Library
+//
+// Artist attribution:
+// - artistSource: "Pixabay" (or other source)
+// - artist: "Artist Name" (as shown on the source website)
+// Example: { artist: "Mikhail Smuev", artistSource: "Pixabay", ... }
 const audioFiles = [
   '/audio/lofi-summer-glow.mp3',        // 1. Lo-Fi (Chill)
   '/audio/lofi-cafe-static.mp3',        // 2. Lo-Fi (Chill)

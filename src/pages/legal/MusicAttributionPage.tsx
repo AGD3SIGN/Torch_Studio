@@ -3,6 +3,7 @@ import { PageLayout } from '@/components/layout/PageLayout'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { tracks } from '@/data/tracks'
 
 export function MusicAttributionPage() {
   return (
@@ -97,6 +98,42 @@ export function MusicAttributionPage() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Artist Credits */}
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Artist Credits</h2>
+          <Card>
+            <CardHeader>
+              <CardTitle>Music by</CardTitle>
+              <CardDescription>All artists featured in our catalog</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {tracks.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {Array.from(
+                      new Map(
+                        tracks.map((t) => [
+                          `${t.artist}|${t.artistSource || 'Pixabay'}`,
+                          { artist: t.artist, source: t.artistSource || 'Pixabay' },
+                        ])
+                      ).values()
+                    ).map(({ artist, source }) => (
+                      <div key={`${artist}|${source}`} className="text-sm">
+                        <p className="font-medium text-foreground">{artist}</p>
+                        <p className="text-xs text-muted-foreground">from {source}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Artist credits will appear here when music is added to the catalog.
+                  </p>
+                )}
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Audio Details */}

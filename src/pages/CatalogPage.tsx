@@ -133,6 +133,10 @@ function TrackCard({ track, onDownload }: { track: Track; onDownload: (t: Track)
       {/* Info */}
       <div className="flex-1 min-w-0">
         <p className="font-medium text-sm text-foreground truncate">{track.title}</p>
+        <p className="text-xs text-muted-foreground truncate">
+          by {track.artist}
+          {track.artistSource && ` (${track.artistSource})`}
+        </p>
         <div className="flex items-center gap-2 mt-0.5 flex-wrap">
           <Badge variant="secondary" className="text-xs px-1.5 py-0">{track.genre}</Badge>
           <span className="text-xs text-muted-foreground">{track.mood}</span>
