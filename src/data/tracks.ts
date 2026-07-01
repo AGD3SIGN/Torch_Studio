@@ -33,22 +33,18 @@ export interface Track {
 // - artist: "Artist Name" (as shown on the source website)
 // Example: { artist: "Mikhail Smuev", artistSource: "Pixabay", ... }
 const audioFiles = [
-  '/audio/lofi-summer-glow.mp3',        // 1. Lo-Fi (Chill)
-  '/audio/lofi-cafe-static.mp3',        // 2. Lo-Fi (Chill)
-  '/audio/lofi-dusty-keys.mp3',         // 3. Lo-Fi (Melancholic)
-  '/audio/lofi-rain-window.mp3',        // 4. Lo-Fi (Chill)
-  '/audio/lofi-midnight-study.mp3',     // 5. Lo-Fi (Chill)
-  '/audio/lofi-hazy-morning.mp3',       // 6. Lo-Fi (Uplifting)
-  '/audio/lofi-bedroom-tape.mp3',       // 7. Lo-Fi (Melancholic)
-  '/audio/lofi-vinyl-crackle.mp3',      // 8. Lo-Fi (Chill)
-  '/audio/lofi-jazz-afternoon.mp3',     // 9. Lo-Fi (Uplifting)
-  '/audio/lofi-neon-lights.mp3',        // 10. Lo-Fi (Energetic)
-  '/audio/lofi-night-drive.mp3',        // 11. Lo-Fi (Chill)
-  '/audio/lofi-city-pulse.mp3',         // 12. Lo-Fi (Chill)
-  '/audio/hiphop-urban-vibes.mp3',      // 13. Hip-Hop
-  '/audio/ambient-peaceful.mp3',        // 14. Ambient
-  '/audio/electronic-neon.mp3',         // 15. Electronic
-  // ... additional tracks would cycle through
+  '/audio/fassounds-good-night-lofi-cozy-chill-music-160166.mp3',                  // 1. Lo-Fi (Chill)
+  '/audio/lofi_music_library-coffee-lofi-chill-lofi-ambient-458901.mp3',           // 2. Lo-Fi (Chill)
+  '/audio/pulsebox-lofi-smooth-522876.mp3',                                         // 3. Lo-Fi (Melancholic)
+  '/audio/alex-morgan-chillhop-jazz-coffee-shop-552792.mp3',                       // 4. Chill-Hop/Jazz
+  '/audio/nastelbom-motivation-442631.mp3',                                         // 5. Lo-Fi (Chill)
+  '/audio/sigmamusicart-no-copyright-music-537751.mp3',                            // 6. Lo-Fi (Uplifting)
+  '/audio/alex-morgan-phonk-brazilian-phonk-phonk-music-545509.mp3',               // 7. Phonk (Energetic)
+  '/audio/the_mountain-phonk-phonk-music-483828.mp3',                              // 8. Phonk (Chill)
+  '/audio/the_mountain-sad-512361.mp3',                                             // 9. Melancholic (Dark)
+  '/audio/nastelbom-suspense-501709.mp3',                                           // 10. Suspense (Dark)
+  '/audio/alexgrohl-motivation-epic-rock-111444.mp3',                              // 11. Epic Rock (Energetic)
+  '/audio/alex-morgan-cinematic-corporate-presentation-556231.mp3',                // 12. Cinematic
 ]
 
 // Cycle through available audio files
@@ -60,18 +56,18 @@ const cycle = (id: number) => audioFiles[(id - 1) % audioFiles.length]
 
 export const tracks: Track[] = [
   // ── Lo-Fi (25) ─────────────────────────────────────────────────────────────
-  { id: 1,   title: 'Summer Glow',        artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Chill',      duration: '3:42', durationSecs: 222, bpm: 87,  price: 0.99, color: '#2D1B69', audioSrc: cycle(1),  tags: ['study','chill','lo-fi'],            license: 'CC0', addedDate: '2024-03-10' },
-  { id: 2,   title: 'Café Static',        artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Chill',      duration: '2:51', durationSecs: 171, bpm: 83,  price: 0.99, color: '#2A3A1A', audioSrc: cycle(2),  tags: ['café','chill','background'],        license: 'CC0', addedDate: '2024-03-08' },
-  { id: 3,   title: 'Dusty Keys',         artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Melancholic',duration: '3:15', durationSecs: 195, bpm: 76,  price: 0.99, color: '#3B2A14', audioSrc: cycle(3),  tags: ['piano','lo-fi','nostalgic'],        license: 'CC0', addedDate: '2024-03-05' },
-  { id: 4,   title: 'Rain Window',        artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Chill',      duration: '4:03', durationSecs: 243, bpm: 91,  price: 0.99, color: '#1A2A3B', audioSrc: cycle(4),  tags: ['rain','lo-fi','relax'],             license: 'CC0', addedDate: '2024-03-01' },
-  { id: 5,   title: 'Midnight Study',     artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Chill',      duration: '3:30', durationSecs: 210, bpm: 80,  price: 0.99, color: '#1F1040', audioSrc: cycle(5),  tags: ['study','midnight','focus'],         license: 'CC0', addedDate: '2024-02-28' },
-  { id: 6,   title: 'Hazy Morning',       artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Uplifting',  duration: '3:10', durationSecs: 190, bpm: 85,  price: 0.99, color: '#3D2E14', audioSrc: cycle(6),  tags: ['morning','chill','lo-fi'],          license: 'CC0', addedDate: '2024-02-25' },
-  { id: 7,   title: 'Bedroom Tape',       artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Melancholic',duration: '2:58', durationSecs: 178, bpm: 78,  price: 0.99, color: '#2E1A10', audioSrc: cycle(7),  tags: ['bedroom','tape','nostalgic'],       license: 'CC0', addedDate: '2024-02-20' },
-  { id: 8,   title: 'Vinyl Crackle',      artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Chill',      duration: '3:20', durationSecs: 200, bpm: 82,  price: 0.99, color: '#1A1A2E', audioSrc: cycle(8),  tags: ['vinyl','lo-fi','chill'],            license: 'CC0', addedDate: '2024-02-15' },
-  { id: 9,   title: 'Sunset Desk',        artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Uplifting',  duration: '3:45', durationSecs: 225, bpm: 88,  price: 0.99, color: '#3A1F12', audioSrc: cycle(9),  tags: ['sunset','study','lo-fi'],           license: 'CC0', addedDate: '2024-02-10' },
-  { id: 10,  title: 'Paper Planes',       artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Chill',      duration: '3:05', durationSecs: 185, bpm: 84,  price: 0.99, color: '#252040', audioSrc: cycle(10), tags: ['chill','lo-fi','dreamy'],           license: 'CC0', addedDate: '2024-02-05' },
-  { id: 11,  title: 'Nostalgic Loop',     artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Melancholic',duration: '2:40', durationSecs: 160, bpm: 74,  price: 0.99, color: '#2A1E0E', audioSrc: cycle(11), tags: ['nostalgic','loop','lo-fi'],         license: 'CC0', addedDate: '2024-01-30' },
-  { id: 12,  title: 'Golden Hour',        artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Uplifting',  duration: '3:50', durationSecs: 230, bpm: 89,  price: 0.99, color: '#3D2800', audioSrc: cycle(12), tags: ['golden','warm','lo-fi'],            license: 'CC0', addedDate: '2024-01-25' },
+  { id: 1,   title: 'Good Night - Lofi Cozy Chill',   artist: 'Fassounds', artistSource: 'Pixabay', genre: 'Lo-Fi',     mood: 'Chill',      duration: '3:42', durationSecs: 222, bpm: 87,  price: 0.99, color: '#2D1B69', audioSrc: cycle(1),  tags: ['study','chill','lo-fi'],            license: 'CC0', addedDate: '2024-03-10' },
+  { id: 2,   title: 'Coffee Lofi Chill',   artist: 'Lofi Music Library', artistSource: 'Pixabay', genre: 'Lo-Fi',     mood: 'Chill',      duration: '2:51', durationSecs: 171, bpm: 83,  price: 0.99, color: '#2A3A1A', audioSrc: cycle(2),  tags: ['café','chill','background'],        license: 'CC0', addedDate: '2024-03-08' },
+  { id: 3,   title: 'Lofi Smooth',   artist: 'Pulsebox', artistSource: 'Pixabay', genre: 'Lo-Fi',     mood: 'Melancholic',duration: '3:15', durationSecs: 195, bpm: 76,  price: 0.99, color: '#3B2A14', audioSrc: cycle(3),  tags: ['piano','lo-fi','nostalgic'],        license: 'CC0', addedDate: '2024-03-05' },
+  { id: 4,   title: 'Chillhop Jazz Coffee Shop',   artist: 'Alex Morgan', artistSource: 'Pixabay', genre: 'Chill-Hop', mood: 'Chill',      duration: '4:03', durationSecs: 243, bpm: 91,  price: 0.99, color: '#1A2A3B', audioSrc: cycle(4),  tags: ['jazz','chill','café'],             license: 'CC0', addedDate: '2024-03-01' },
+  { id: 5,   title: 'Motivation',   artist: 'Nastelbom', artistSource: 'Pixabay', genre: 'Lo-Fi',     mood: 'Chill',      duration: '3:30', durationSecs: 210, bpm: 80,  price: 0.99, color: '#1F1040', audioSrc: cycle(5),  tags: ['study','motivation','focus'],         license: 'CC0', addedDate: '2024-02-28' },
+  { id: 6,   title: 'No Copyright Music',   artist: 'Sigma Music Art', artistSource: 'Pixabay', genre: 'Lo-Fi',     mood: 'Uplifting',  duration: '3:10', durationSecs: 190, bpm: 85,  price: 0.99, color: '#3D2E14', audioSrc: cycle(6),  tags: ['morning','chill','lo-fi'],          license: 'CC0', addedDate: '2024-02-25' },
+  { id: 7,   title: 'Brazilian Phonk',   artist: 'Alex Morgan', artistSource: 'Pixabay', genre: 'Phonk',     mood: 'Energetic',duration: '2:58', durationSecs: 178, bpm: 78,  price: 0.99, color: '#2E1A10', audioSrc: cycle(7),  tags: ['phonk','brazilian','energetic'],       license: 'CC0', addedDate: '2024-02-20' },
+  { id: 8,   title: 'Phonk Music',   artist: 'The Mountain', artistSource: 'Pixabay', genre: 'Phonk',     mood: 'Chill',      duration: '3:20', durationSecs: 200, bpm: 82,  price: 0.99, color: '#1A1A2E', audioSrc: cycle(8),  tags: ['phonk','chill','beat'],            license: 'CC0', addedDate: '2024-02-15' },
+  { id: 9,   title: 'Sad',   artist: 'The Mountain', artistSource: 'Pixabay', genre: 'Melancholic', mood: 'Dark',  duration: '3:45', durationSecs: 225, bpm: 88,  price: 0.99, color: '#3A1F12', audioSrc: cycle(9),  tags: ['sad','melancholic','dark'],           license: 'CC0', addedDate: '2024-02-10' },
+  { id: 10,  title: 'Suspense',   artist: 'Nastelbom', artistSource: 'Pixabay', genre: 'Ambient', mood: 'Dark',      duration: '3:05', durationSecs: 185, bpm: 84,  price: 0.99, color: '#252040', audioSrc: cycle(10), tags: ['suspense','dark','ambient'],           license: 'CC0', addedDate: '2024-02-05' },
+  { id: 11,  title: 'Motivation - Epic Rock',   artist: 'Alex Grohl', artistSource: 'Pixabay', genre: 'Rock', mood: 'Energetic', duration: '2:40', durationSecs: 160, bpm: 74,  price: 0.99, color: '#2A1E0E', audioSrc: cycle(11), tags: ['motivation','epic','rock'],         license: 'CC0', addedDate: '2024-01-30' },
+  { id: 12,  title: 'Cinematic Corporate Presentation',   artist: 'Alex Morgan', artistSource: 'Pixabay', genre: 'Cinematic', mood: 'Uplifting',  duration: '3:50', durationSecs: 230, bpm: 89,  price: 0.99, color: '#3D2800', audioSrc: cycle(12), tags: ['cinematic','corporate','uplifting'],            license: 'CC0', addedDate: '2024-01-25' },
   { id: 13,  title: 'Slow Grind',         artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Chill',      duration: '3:15', durationSecs: 195, bpm: 77,  price: 0.99, color: '#1C2C1C', audioSrc: cycle(13), tags: ['slow','lo-fi','chill'],             license: 'CC0', addedDate: '2024-01-20' },
   { id: 14,  title: 'Afternoon Slump',    artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Melancholic',duration: '3:00', durationSecs: 180, bpm: 79,  price: 0.99, color: '#2E2010', audioSrc: cycle(14), tags: ['afternoon','mellow','lo-fi'],       license: 'CC0', addedDate: '2024-01-15' },
   { id: 15,  title: 'Worn Out Tape',      artist: 'Torch Studio Library', genre: 'Lo-Fi',     mood: 'Melancholic',duration: '2:55', durationSecs: 175, bpm: 75,  price: 0.99, color: '#1E1010', audioSrc: cycle(15), tags: ['tape','worn','lo-fi'],              license: 'CC0', addedDate: '2024-01-10' },
