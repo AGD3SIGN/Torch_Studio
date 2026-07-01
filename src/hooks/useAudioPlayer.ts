@@ -37,6 +37,8 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
   }, [])
 
   const play = useCallback((id: number, src: string) => {
+    console.log('🎵 play() called with id:', id, 'src:', src)
+
     // Stop any existing playback
     if (globalAudio) {
       globalAudio.pause()
@@ -48,23 +50,32 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
     if (timerRef.current) clearInterval(timerRef.current)
 
     const audio = new Audio(src)
+    audio.volume = 1
     audio.crossOrigin = 'anonymous'
     globalAudio = audio
 
-    // Debug: log the audio source
-    if (import.meta.env.DEV) {
-      console.log('Loading audio:', src)
-    }
+    console.log('🎵 Audio element created, src:', src, 'volume:', audio.volume)
 
-    audio.onerror = () => {
-      console.error('Audio load error for:', src)
+    audio.onloadstart = () => console.log('🎵 Loading started')
+    audio.oncanplay = () => console.log('🎵 Can play')
+    audio.onplay = () => console.log('🎵 Play event fired')
+
+    audio.onerror = (e) => {
+      console.error('🎵 Audio load error for:', src, 'error:', e)
       setPlayingId(null)
     }
 
-    audio.play().catch((err) => {
-      console.error('Audio play error:', err)
-      setPlayingId(null)
-    })
+    const playPromise = audio.play()
+    console.log('🎵 play() method called, promise:', playPromise)
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => console.log('🎵 Audio playing successfully'))
+        .catch((err) => {
+          console.error('🎵 Audio play error:', err.name, err.message)
+          setPlayingId(null)
+        })
+    }
 
     startTimeRef.current = Date.now()
     setPlayingId(id)

@@ -223,7 +223,7 @@ export function CreatorStudioPage() {
   return (
     <PageLayout title="Creator Studio — Torch Studio">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-b from-secondary/60 to-background border-b border-border">
+      <section className="bg-secondary/40 border-b border-border">
         <div className="section-container py-20 lg:py-28 text-center">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-6">
             <Zap className="h-3.5 w-3.5" aria-hidden="true" />
@@ -245,7 +245,7 @@ export function CreatorStudioPage() {
             </Button>
             <Link
               to="/catalog"
-              className="inline-flex items-center justify-center h-9 gap-1.5 px-2.5 rounded-lg border border-border bg-background text-sm font-medium hover:bg-muted transition-colors"
+              className="inline-flex items-center justify-center h-11 gap-1.5 px-6 rounded-lg border border-border bg-background text-sm font-semibold hover:bg-secondary transition-colors"
             >
               Browse catalog
             </Link>

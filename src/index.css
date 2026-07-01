@@ -40,6 +40,24 @@
   50%       { transform: scaleY(1);   opacity: 1; }
 }
 
+/* Tile ambient idle pulse — each tile breathes softly at rest */
+@keyframes tile-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.78; }
+}
+
+/* Waveform bars at rest — very short, low opacity, no scale change */
+@keyframes wave-rest {
+  0%, 100% { transform: scaleY(0.7); opacity: 0.35; }
+  50%       { transform: scaleY(1);   opacity: 0.55; }
+}
+
+/* Dot blink for the live badge */
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
 /* =========================================================
    Design Tokens — light & dark
    ========================================================= */
@@ -125,14 +143,18 @@
   --shadow-amber:   0 8px 24px -4px rgba(217, 107, 43, 0.3);
 
   /* Animations */
-  --animate-fade-in:  fade-in  0.5s ease-out forwards;
-  --animate-slide-up: slide-up 0.6s ease-out forwards;
-  --animate-float:    float    3s   ease-in-out infinite;
-  --animate-wave:     wave     1.2s ease-in-out infinite;
+  --animate-fade-in:    fade-in    0.5s ease-out forwards;
+  --animate-slide-up:   slide-up   0.6s ease-out forwards;
+  --animate-float:      float      3s   ease-in-out infinite;
+  --animate-wave:       wave       1.2s ease-in-out infinite;
+  --animate-tile-pulse: tile-pulse 4s   ease-in-out infinite;
+  --animate-wave-rest:  wave-rest  2.4s ease-in-out infinite;
+  --animate-dot-blink:  dot-blink  1.8s ease-in-out infinite;
 
-  /* Custom font-size tokens */
-  --text-display-lg: 3.5rem;
-  --text-display:    3rem;
+  /* Custom font-size tokens — extended for dramatic editorial scale */
+  --text-display-xl: 6rem;
+  --text-display-lg: 4.5rem;
+  --text-display:    3.5rem;
   --text-display-sm: 2.25rem;
 
   /* Extended torch color palette (static, not theme-switchable) */
@@ -210,9 +232,10 @@
     @apply font-display tracking-tight;
   }
 
-  h1 { @apply text-5xl font-bold   leading-tight;  letter-spacing: -0.025em; }
-  h2 { @apply text-4xl font-bold   leading-tight;  letter-spacing: -0.02em; }
-  h3 { @apply text-3xl font-semibold leading-snug; letter-spacing: -0.015em; }
+  /* Dramatically larger heading scale for editorial impact */
+  h1 { @apply text-6xl font-bold   leading-none;   letter-spacing: -0.04em; }
+  h2 { @apply text-5xl font-bold   leading-tight;  letter-spacing: -0.03em; }
+  h3 { @apply text-3xl font-semibold leading-snug; letter-spacing: -0.02em; }
   h4 { @apply text-2xl font-semibold leading-snug; letter-spacing: -0.01em; }
 
   p { @apply leading-relaxed; }
@@ -245,11 +268,12 @@
     @apply -translate-y-0.5 shadow-md;
   }
 
+  /* Waveform bar — color is supplied by the component (bg-primary or bg-white etc.) */
   .waveform-bar {
-    @apply bg-primary rounded-full;
+    @apply rounded-full;
     animation: wave 1.2s ease-in-out infinite;
   }
-  /* Stagger all 20 bars across a 0–1.14s spread */
+  /* Stagger all 28 bars across a 0–1.62s spread */
   .waveform-bar:nth-child(1)  { animation-delay: 0s; }
   .waveform-bar:nth-child(2)  { animation-delay: 0.06s; }
   .waveform-bar:nth-child(3)  { animation-delay: 0.12s; }
@@ -270,6 +294,106 @@
   .waveform-bar:nth-child(18) { animation-delay: 1.02s; }
   .waveform-bar:nth-child(19) { animation-delay: 1.08s; }
   .waveform-bar:nth-child(20) { animation-delay: 1.14s; }
+  .waveform-bar:nth-child(21) { animation-delay: 1.20s; }
+  .waveform-bar:nth-child(22) { animation-delay: 1.26s; }
+  .waveform-bar:nth-child(23) { animation-delay: 1.32s; }
+  .waveform-bar:nth-child(24) { animation-delay: 1.38s; }
+  .waveform-bar:nth-child(25) { animation-delay: 1.44s; }
+  .waveform-bar:nth-child(26) { animation-delay: 1.50s; }
+  .waveform-bar:nth-child(27) { animation-delay: 1.56s; }
+  .waveform-bar:nth-child(28) { animation-delay: 1.62s; }
+
+  /* Idle decorative waveform bars — always visible at low opacity */
+  .waveform-bar-idle {
+    @apply rounded-full bg-white;
+    animation: wave-rest 2.4s ease-in-out infinite;
+    opacity: 0.4;
+  }
+  .waveform-bar-idle:nth-child(1)  { animation-delay: 0s; }
+  .waveform-bar-idle:nth-child(2)  { animation-delay: 0.2s; }
+  .waveform-bar-idle:nth-child(3)  { animation-delay: 0.4s; }
+  .waveform-bar-idle:nth-child(4)  { animation-delay: 0.6s; }
+  .waveform-bar-idle:nth-child(5)  { animation-delay: 0.8s; }
+  .waveform-bar-idle:nth-child(6)  { animation-delay: 1.0s; }
+  .waveform-bar-idle:nth-child(7)  { animation-delay: 1.2s; }
+  .waveform-bar-idle:nth-child(8)  { animation-delay: 1.4s; }
+  .waveform-bar-idle:nth-child(9)  { animation-delay: 1.6s; }
+  .waveform-bar-idle:nth-child(10) { animation-delay: 1.8s; }
+
+  /* Hero tile — ambient pulse stagger (applied per tile via inline animation-delay) */
+  .hero-tile {
+    animation: tile-pulse 4s ease-in-out infinite;
+  }
+
+  /* Live dot blink */
+  .live-dot {
+    animation: dot-blink 1.8s ease-in-out infinite;
+  }
+
+  /* Hides scrollbars while preserving scroll functionality */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 600ms transition duration — used for hero background crossfade */
+  .duration-600 {
+    transition-duration: 600ms;
+  }
+
+  /* Heading accent underline */
+  .accent-underline {
+    text-decoration: underline;
+    text-decoration-color: hsl(22 70% 51% / 0.45);
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
+  }
+
+  /* Overline label — small caps uppercase category tag above headings */
+  .overline-label {
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-primary;
+  }
+
+  /* Section divider — thin rule used as structural accent */
+  .section-rule {
+    @apply border-t border-border;
+  }
+
+  /* Editorial hero headline — maximum typographic impact */
+  .hero-headline {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+  }
+
+  /* Bold section headline — used for major section titles */
+  .section-headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  /* Formal card — clean, architectural, no decorative shadow */
+  .formal-card {
+    @apply bg-background border border-border rounded-none;
+  }
+
+  /* Attribution modal overlay */
+  .attribution-overlay {
+    @apply fixed inset-0 z-50 bg-foreground/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4;
+  }
+
+  /* Attribution modal panel */
+  .attribution-panel {
+    @apply bg-background border border-border w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-none;
+  }
 }
 
 /* =========================================================

@@ -20,9 +20,9 @@ function getPasswordStrength(pw: string): { label: string; color: string; width:
 }
 
 const testimonials = [
-  { quote: "Found the perfect lo-fi track for my study channel in under 5 minutes.", author: "Yuki S.", role: "YouTube Creator" },
-  { quote: "CC0 licensing means I never worry about copyright strikes. Game changer.", author: "Marcus T.", role: "Podcast Host" },
-  { quote: "Incredible value. $0.99 for a track I've used in 12 client videos.", author: "Priya K.", role: "Freelance Editor" },
+  { quote: "Found the perfect lo-fi track for my study channel in under 5 minutes.", author: "Yuki S.", role: "Content Creator" },
+  { quote: "CC0 licensing means I never worry about copyright strikes. Game changer.", author: "Marcus T.", role: "Freelance Filmmaker" },
+  { quote: "Incredible value. $0.99 for a track I've used in 12 client videos.", author: "Priya M.", role: "Podcast Producer" },
 ]
 
 export function SignInPage() {

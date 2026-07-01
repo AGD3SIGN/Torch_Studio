@@ -73,11 +73,11 @@ const releases: Release[] = [
     label: 'Major',
     title: 'Public Launch',
     highlights: [
-      'Torch Studio launches publicly with 110 tracks across 11 genres.',
+      'Torch Studio launches publicly with 110 tracks across 11 genres — since grown to 150+ across 12 genres.',
       'CC0 licensing on every track — no attribution, no royalties, no restrictions.',
       'Hero audio previews — 30-second clips directly on the homepage.',
       'Full catalog page with genre, mood, duration, and price filters.',
-      'Pricing tiers: Starter ($4.99/mo), Creator ($12.99/mo), Studio ($29/mo).',
+      'Pricing tiers: Free ($0), Creator ($4.99/mo), Pro ($12.99/mo).',
     ],
   },
   {

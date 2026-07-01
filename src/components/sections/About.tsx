@@ -2,16 +2,13 @@
  * Torch Studio — About Section
  * Pattern: Mission Statement → Values Grid → Stats Row
  *
- * Structure:
- *  1. Brand story / mission block (editorial, warm, personal)
- *  2. 3-column values/beliefs grid with icon cards
- *  3. Stats row (4 key numbers)
+ * Redesigned for formal, editorial aesthetic:
+ * — Overline labels + bold section headlines
+ * — Borderless card-free layout for values (column dividers, not card shadows)
+ * — Stats row with large typographic numbers
  */
 
 import { Flame, Heart, Users, Globe, Music, Zap } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Data
@@ -42,10 +39,10 @@ const values = [
 ]
 
 const stats = [
-  { value: '100+',  label: 'Tracks in the catalog', icon: Music },
-  { value: '1,200+', label: 'Independent creators', icon: Users },
-  { value: '$0.99', label: 'Starting price per track', icon: Flame },
-  { value: '12',    label: 'Genres and counting', icon: Globe },
+  { value: '150+',   label: 'Tracks in the catalog', icon: Music },
+  { value: '1,200+', label: 'Creators served',         icon: Users },
+  { value: '$0.99',  label: 'Starting price per track', icon: Flame },
+  { value: '12',     label: 'Genres and counting',      icon: Globe },
 ]
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -58,76 +55,75 @@ export function About() {
       <div className="section-container">
 
         {/* ── 1. Mission / Brand Story ───────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+        <div className="mb-20">
+          <p className="overline-label mb-5">Our story</p>
 
-          {/* Left — editorial headline */}
-          <div className="animate-fade-in">
-            <Badge
-              variant="outline"
-              className="border-primary/30 text-primary bg-primary/8 font-semibold text-xs tracking-wide px-3 py-1 mb-6"
-            >
-              Our story
-            </Badge>
-            <h2 className="font-display text-4xl font-bold text-foreground leading-tight mb-6">
-              We made this because{' '}
-              <span className="text-primary">music licensing was broken</span>{' '}
-              for the rest of us.
-            </h2>
-            <p className="text-base text-muted-foreground leading-relaxed mb-4">
-              Torch Studio started as a frustration. We kept watching talented filmmakers,
-              podcasters, and indie creators either skip music altogether or burn hours hunting
-              for royalty-free loops that sounded like elevator hold music.
-            </p>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              So we built a platform where the prices are honest, the catalog is deep, and the
-              whole experience feels less like filing a legal brief and more like asking a friend
-              who always has great music recs. That's Torch Studio — a torch passed between
-              artists and the people who love what they make.
-            </p>
-          </div>
-
-          {/* Right — decorative brand card */}
-          <div
-            className="animate-slide-up"
-            style={{ animationDelay: '0.15s' }}
-            aria-hidden="true"
-          >
-            <div className="relative rounded-2xl bg-background border border-border shadow-warm-md overflow-hidden">
-              {/* Warm radial background glow */}
-              <div
-                className="absolute -top-16 -right-16 h-64 w-64 rounded-full opacity-20 pointer-events-none"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            {/* Left — editorial headline */}
+            <div>
+              <h2
+                className="text-foreground mb-8"
                 style={{
-                  background:
-                    'radial-gradient(circle, hsl(22 70% 51% / 0.5) 0%, transparent 70%)',
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 900,
+                  lineHeight: 0.92,
+                  letterSpacing: '-0.04em',
+                  fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
                 }}
-              />
+              >
+                We made this because music licensing was{' '}
+                <span className="text-primary">broken</span>{' '}
+                for the rest of us.
+              </h2>
 
-              <div className="relative p-8">
-                {/* Flame icon */}
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary shadow-amber mb-6">
-                  <Flame className="h-7 w-7 text-primary-foreground" strokeWidth={1.75} />
-                </div>
-
-                <blockquote className="font-display text-2xl font-semibold text-foreground leading-snug mb-4">
-                  "Quality music at honest prices. For everyone."
-                </blockquote>
-
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  That's the whole mission. We measure every decision against it —
-                  whether it's a pricing tier, a new catalog section, or how we handle
-                  a licensing question at 11pm on a Friday.
+              <div className="border-l-2 border-primary/50 pl-5 mb-6">
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  Torch Studio started as a frustration. We kept watching talented filmmakers,
+                  podcasters, and indie creators either skip music altogether or burn hours hunting
+                  for royalty-free loops that sounded like elevator hold music.
                 </p>
+              </div>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                So we built a platform where the prices are honest, the catalog is deep, and the
+                whole experience feels less like filing a legal brief and more like asking a friend
+                who always has great music recs.
+              </p>
+            </div>
 
-                <Separator className="mb-6 bg-border" />
+            {/* Right — brand mission block — architectural, no decorative gradients */}
+            <div
+              className="border border-border bg-background p-8 lg:p-10"
+              aria-hidden="true"
+            >
+              {/* Flame icon — flat, no shadow */}
+              <div className="flex h-12 w-12 items-center justify-center bg-primary mb-7">
+                <Flame className="h-6 w-6 text-primary-foreground" strokeWidth={1.75} />
+              </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 border border-primary/20">
-                    <span className="font-display text-sm font-bold text-primary">TS</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground leading-none">The Torch Studio team</p>
-                    <p className="text-xs text-muted-foreground mt-1">Building in the open since 2024</p>
-                  </div>
+              <blockquote
+                className="font-display font-bold text-foreground leading-tight mb-6"
+                style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', letterSpacing: '-0.02em' }}
+              >
+                "Quality music at honest prices. For everyone."
+              </blockquote>
+
+              <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                That's the whole mission. We measure every decision against it —
+                whether it's a pricing tier, a new catalog section, or how we handle
+                a licensing question at 11pm on a Friday.
+              </p>
+
+              <div className="border-t border-border pt-6 flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center border border-border">
+                  <span className="font-display text-xs font-bold text-primary">TS</span>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-foreground leading-none tracking-wide">
+                    The Torch Studio team
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 uppercase tracking-[0.1em]">
+                    Building in the open since 2024
+                  </p>
                 </div>
               </div>
             </div>
@@ -136,64 +132,63 @@ export function About() {
 
         {/* ── 2. Values Grid ─────────────────────────────────────────────── */}
         <div className="mb-16">
-          <div className="text-center mb-10">
-            <h3 className="font-display text-3xl font-semibold text-foreground mb-3">
-              What we believe
-            </h3>
-            <p className="text-muted-foreground text-base max-w-md mx-auto">
-              Three things we won't compromise on, no matter how fast we grow.
-            </p>
-          </div>
+          <p className="overline-label mb-4">What we believe</p>
+          <p className="text-muted-foreground text-base mb-10 max-w-md">
+            Three things we won't compromise on, no matter how fast we grow.
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {values.map((value) => {
+          {/* Values as bordered columns — no individual card shadows */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-border divide-y md:divide-y-0 md:divide-x divide-border">
+            {values.map((value, i) => {
               const Icon = value.icon
               return (
-                <Card
-                  key={value.title}
-                  className="bg-background border-border shadow-warm hover:-translate-y-1 transition-all duration-300 group"
-                >
-                  <CardContent className="pt-6 pb-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 mb-4 group-hover:bg-primary/15 transition-colors duration-200">
-                      <Icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
-                    </div>
-                    <Badge
-                      variant="outline"
-                      className="w-fit text-xs font-semibold border-primary/20 text-primary bg-primary/5 mb-3"
-                    >
-                      {value.badge}
-                    </Badge>
-                    <h4 className="font-display text-xl font-bold text-foreground mb-2 leading-snug">
-                      {value.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {value.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                <div key={value.title} className="p-8 lg:p-10 group">
+                  <p className="text-xs font-mono text-muted-foreground/40 mb-5 tracking-[0.15em]">
+                    0{i + 1}
+                  </p>
+
+                  <div className="flex h-11 w-11 items-center justify-center bg-primary/10 mb-5 group-hover:bg-primary/15 transition-colors duration-200">
+                    <Icon className="h-5 w-5 text-primary" strokeWidth={1.75} />
+                  </div>
+
+                  <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-3">
+                    {value.badge}
+                  </p>
+
+                  <h4 className="font-display text-xl font-bold text-foreground mb-3 leading-snug">
+                    {value.title}
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {value.description}
+                  </p>
+                </div>
               )
             })}
           </div>
         </div>
 
-        {/* ── 3. Stats Row ───────────────────────────────────────────────── */}
-        <div className="rounded-2xl bg-background border border-border shadow-warm overflow-hidden">
+        {/* ── 3. Stats Row — large typographic numbers ──────────────────── */}
+        <div className="border border-border bg-background overflow-hidden">
           <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-x divide-border">
             {stats.map((stat, index) => {
               const Icon = stat.icon
               return (
                 <div
                   key={stat.label}
-                  className="flex flex-col items-center justify-center gap-2 px-6 py-8 text-center group"
+                  className="flex flex-col items-center justify-center gap-1 px-6 py-10 text-center group"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 mb-1 group-hover:bg-primary/15 transition-colors duration-200">
-                    <Icon className="h-5 w-5 text-primary" strokeWidth={1.75} />
+                  <div className="flex h-9 w-9 items-center justify-center bg-primary/10 mb-2 group-hover:bg-primary/15 transition-colors duration-200">
+                    <Icon className="h-4 w-4 text-primary" strokeWidth={1.75} />
                   </div>
-                  <span className="font-display text-3xl font-bold text-foreground tracking-tight">
+                  {/* Large dramatic number */}
+                  <span
+                    className="font-display font-black text-foreground tracking-tight"
+                    style={{ fontSize: 'clamp(2rem, 3vw, 2.75rem)', letterSpacing: '-0.035em' }}
+                  >
                     {stat.value}
                   </span>
-                  <span className="text-xs text-muted-foreground font-medium leading-snug max-w-[10ch] mx-auto">
+                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-[0.1em] leading-snug max-w-[12ch] mx-auto mt-1">
                     {stat.label}
                   </span>
                 </div>
