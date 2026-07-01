@@ -19,6 +19,7 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { tracks as canonicalTracks } from '@/data/tracks'
 import { isValidEmail } from '@/lib/validation'
+import { useAudioPlayer } from '@/hooks/useAudioPlayer'
 import { cn } from '@/lib/utils'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -118,7 +119,7 @@ const waveformHeights: Record<number, number[]> = Object.fromEntries(
 
 export function CatalogPreview() {
   const [activeGenre, setActiveGenre] = useState('All')
-  const [playingId, setPlayingId] = useState<number | null>(null)
+  const { toggle, isPlaying } = useAudioPlayer()
 
   const filtered = useMemo(
     () => activeGenre === 'All' ? tracks : tracks.filter((t) => t.genre === activeGenre),
@@ -174,13 +175,13 @@ export function CatalogPreview() {
             >
               {/* Play/Pause button — the only interactive element in the row */}
               <button
-                onClick={() => setPlayingId(playingId === track.id ? null : track.id)}
+                onClick={() => toggle(track.id, track.audioSrc)}
                 className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-opacity"
                 style={{ backgroundColor: track.color }}
-                aria-label={playingId === track.id ? `Pause ${track.title}` : `Play ${track.title}`}
+                aria-label={isPlaying(track.id) ? `Pause ${track.title}` : `Play ${track.title}`}
               >
                 <span className="flex h-8 w-8 items-center justify-center rounded-md bg-white/20 hover:bg-white/30 transition-colors">
-                  {playingId === track.id ? (
+                  {isPlaying(track.id) ? (
                     <Pause className="h-3.5 w-3.5 text-white fill-white" strokeWidth={0} />
                   ) : (
                     <Play className="h-3.5 w-3.5 text-white fill-white ml-0.5" strokeWidth={0} />
@@ -206,7 +207,7 @@ export function CatalogPreview() {
                     key={i}
                     className={cn(
                       'w-0.5 rounded-full bg-muted transition-all duration-200',
-                      playingId === track.id && 'bg-primary waveform-bar',
+                      isPlaying(track.id) && 'bg-primary waveform-bar',
                     )}
                     style={{
                       height: `${height}%`,
