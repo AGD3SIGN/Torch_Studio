@@ -32,19 +32,20 @@ export interface Track {
 // - artistSource: "Pixabay" (or other source)
 // - artist: "Artist Name" (as shown on the source website)
 // Example: { artist: "Mikhail Smuev", artistSource: "Pixabay", ... }
+const baseUrl = import.meta.env.BASE_URL
 const audioFiles = [
-  '/audio/fassounds-good-night-lofi-cozy-chill-music-160166.mp3',                  // 1. Lo-Fi (Chill)
-  '/audio/lofi_music_library-coffee-lofi-chill-lofi-ambient-458901.mp3',           // 2. Lo-Fi (Chill)
-  '/audio/pulsebox-lofi-smooth-522876.mp3',                                         // 3. Lo-Fi (Melancholic)
-  '/audio/alex-morgan-chillhop-jazz-coffee-shop-552792.mp3',                       // 4. Chill-Hop/Jazz
-  '/audio/nastelbom-motivation-442631.mp3',                                         // 5. Lo-Fi (Chill)
-  '/audio/sigmamusicart-no-copyright-music-537751.mp3',                            // 6. Lo-Fi (Uplifting)
-  '/audio/alex-morgan-phonk-brazilian-phonk-phonk-music-545509.mp3',               // 7. Phonk (Energetic)
-  '/audio/the_mountain-phonk-phonk-music-483828.mp3',                              // 8. Phonk (Chill)
-  '/audio/the_mountain-sad-512361.mp3',                                             // 9. Melancholic (Dark)
-  '/audio/nastelbom-suspense-501709.mp3',                                           // 10. Suspense (Dark)
-  '/audio/alexgrohl-motivation-epic-rock-111444.mp3',                              // 11. Epic Rock (Energetic)
-  '/audio/alex-morgan-cinematic-corporate-presentation-556231.mp3',                // 12. Cinematic
+  `${baseUrl}audio/fassounds-good-night-lofi-cozy-chill-music-160166.mp3`,                  // 1. Lo-Fi (Chill)
+  `${baseUrl}audio/lofi_music_library-coffee-lofi-chill-lofi-ambient-458901.mp3`,           // 2. Lo-Fi (Chill)
+  `${baseUrl}audio/pulsebox-lofi-smooth-522876.mp3`,                                         // 3. Lo-Fi (Melancholic)
+  `${baseUrl}audio/alex-morgan-chillhop-jazz-coffee-shop-552792.mp3`,                       // 4. Chill-Hop/Jazz
+  `${baseUrl}audio/nastelbom-motivation-442631.mp3`,                                         // 5. Lo-Fi (Chill)
+  `${baseUrl}audio/sigmamusicart-no-copyright-music-537751.mp3`,                            // 6. Lo-Fi (Uplifting)
+  `${baseUrl}audio/alex-morgan-phonk-brazilian-phonk-phonk-music-545509.mp3`,               // 7. Phonk (Energetic)
+  `${baseUrl}audio/the_mountain-phonk-phonk-music-483828.mp3`,                              // 8. Phonk (Chill)
+  `${baseUrl}audio/the_mountain-sad-512361.mp3`,                                             // 9. Melancholic (Dark)
+  `${baseUrl}audio/nastelbom-suspense-501709.mp3`,                                           // 10. Suspense (Dark)
+  `${baseUrl}audio/alexgrohl-motivation-epic-rock-111444.mp3`,                              // 11. Epic Rock (Energetic)
+  `${baseUrl}audio/alex-morgan-cinematic-corporate-presentation-556231.mp3`,                // 12. Cinematic
 ]
 
 // Cycle through available audio files
