@@ -51,8 +51,18 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
     audio.crossOrigin = 'anonymous'
     globalAudio = audio
 
-    audio.play().catch(() => {
-      // Autoplay blocked or network error
+    // Debug: log the audio source
+    if (import.meta.env.DEV) {
+      console.log('Loading audio:', src)
+    }
+
+    audio.onerror = () => {
+      console.error('Audio load error for:', src)
+      setPlayingId(null)
+    }
+
+    audio.play().catch((err) => {
+      console.error('Audio play error:', err)
       setPlayingId(null)
     })
 
