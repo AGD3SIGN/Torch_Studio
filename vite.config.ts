@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
 export default defineConfig({
-  base: '/Torch_Studio/',
+  base: process.env.NODE_ENV === 'production' ? '/Torch_Studio/' : '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

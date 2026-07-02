@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Search, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { PageLayout } from '@/components/layout/PageLayout'
 import { SupportNav } from '@/components/support/SupportNav'
+import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 
 interface QA { q: string; a: string }
 interface Category { name: string; items: QA[] }
@@ -25,7 +26,7 @@ const categories: Category[] = [
     items: [
       { q: 'How do I download a track?', a: 'Click the download icon on any track card. You must be signed in to download. Files are delivered as MP3 (320kbps) or WAV (24-bit) depending on your plan.' },
       { q: 'What audio formats are available?', a: 'Free and Creator plans include MP3. Pro plan includes both MP3 (320kbps) and WAV (24-bit/48kHz).' },
-      { q: 'How many tracks can I download per month?', a: 'Free: 0 (preview only). Creator: 30 downloads/month. Pro: Unlimited.' },
+      { q: 'How many tracks can I download per month?', a: 'Free accounts can buy individual tracks at $0.99–$2.99 per track — no monthly download limit, but no subscription credits. Creator: 30 downloads/month included. Pro: Unlimited.' },
       { q: "Do my downloads roll over if I don't use them?", a: "No. Download credits reset on your billing date each month. Unused credits do not carry over." },
       { q: "Where do my downloaded files go?", a: "Files download directly to your device's default downloads folder. File names follow the format: TrackTitle_TorchStudio_CC0.mp3." },
       { q: "Can I re-download a track I've already purchased?", a: "Yes. All purchased and downloaded tracks are accessible from your account under 'My Downloads' for 12 months." },
@@ -61,12 +62,12 @@ const allItems: (QA & { category: string })[] = categories.flatMap((c) =>
 export function HelpCenterPage() {
   const [rawSearch, setRawSearch] = useState('')
   const [search, setSearch] = useState('')
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const debouncedSetSearch = useDebouncedCallback((v: string) => setSearch(v), 300)
 
   const handleSearch = (v: string) => {
     setRawSearch(v)
-    if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => setSearch(v), 300)
+    debouncedSetSearch(v)
   }
 
   const filtered = search

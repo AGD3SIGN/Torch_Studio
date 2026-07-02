@@ -4,6 +4,7 @@ import { Flame, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/context/AuthContext'
+import { isValidEmail } from '@/lib/validation'
 import { toast } from 'sonner'
 
 function getPasswordStrength(pw: string): { label: string; color: string; width: string } {
@@ -19,9 +20,9 @@ function getPasswordStrength(pw: string): { label: string; color: string; width:
 }
 
 const testimonials = [
-  { quote: "Found the perfect lo-fi track for my study channel in under 5 minutes.", author: "Yuki S.", role: "YouTube Creator" },
-  { quote: "CC0 licensing means I never worry about copyright strikes. Game changer.", author: "Marcus T.", role: "Podcast Host" },
-  { quote: "Incredible value. $0.99 for a track I've used in 12 client videos.", author: "Priya K.", role: "Freelance Editor" },
+  { quote: "Found the perfect lo-fi track for my study channel in under 5 minutes.", author: "Yuki S.", role: "Content Creator" },
+  { quote: "CC0 licensing means I never worry about copyright strikes. Game changer.", author: "Marcus T.", role: "Freelance Filmmaker" },
+  { quote: "Incredible value. $0.99 for a track I've used in 12 client videos.", author: "Priya M.", role: "Podcast Producer" },
 ]
 
 export function SignInPage() {
@@ -52,9 +53,9 @@ export function SignInPage() {
     const e: Record<string, string> = {}
     if (mode === 'register' && !name.trim()) e.name = 'Full name is required'
     if (!email.trim()) e.email = 'Email is required'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Enter a valid email'
+    else if (!isValidEmail(email)) e.email = 'Enter a valid email'
     if (!password) e.password = 'Password is required'
-    else if (password.length < 6) e.password = 'Password must be at least 6 characters'
+    else if (password.length < 12) e.password = 'Password must be at least 12 characters'
     setErrors(e)
     return Object.keys(e).length === 0
   }

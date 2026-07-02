@@ -13,6 +13,7 @@ interface UseAudioPlayerReturn {
 
 // Single global Audio instance shared across the app
 let globalAudio: HTMLAudioElement | null = null
+let endedHandler: (() => void) | null = null
 
 export function useAudioPlayer(): UseAudioPlayerReturn {
   const [playingId, setPlayingId] = useState<number | null>(null)
@@ -25,6 +26,10 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
     if (globalAudio) {
       globalAudio.pause()
       globalAudio.currentTime = 0
+      if (endedHandler) {
+        globalAudio.removeEventListener('ended', endedHandler)
+        endedHandler = null
+      }
     }
     if (timerRef.current) clearInterval(timerRef.current)
     setPlayingId(null)
@@ -32,21 +37,45 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
   }, [])
 
   const play = useCallback((id: number, src: string) => {
+    console.log('🎵 play() called with id:', id, 'src:', src)
+
     // Stop any existing playback
     if (globalAudio) {
       globalAudio.pause()
       globalAudio.currentTime = 0
+      if (endedHandler) {
+        globalAudio.removeEventListener('ended', endedHandler)
+      }
     }
     if (timerRef.current) clearInterval(timerRef.current)
 
     const audio = new Audio(src)
+    audio.volume = 1
     audio.crossOrigin = 'anonymous'
     globalAudio = audio
 
-    audio.play().catch(() => {
-      // Autoplay blocked or network error
+    console.log('🎵 Audio element created, src:', src, 'volume:', audio.volume)
+
+    audio.onloadstart = () => console.log('🎵 Loading started')
+    audio.oncanplay = () => console.log('🎵 Can play')
+    audio.onplay = () => console.log('🎵 Play event fired')
+
+    audio.onerror = (e) => {
+      console.error('🎵 Audio load error for:', src, 'error:', e)
       setPlayingId(null)
-    })
+    }
+
+    const playPromise = audio.play()
+    console.log('🎵 play() method called, promise:', playPromise)
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => console.log('🎵 Audio playing successfully'))
+        .catch((err) => {
+          console.error('🎵 Audio play error:', err.name, err.message)
+          setPlayingId(null)
+        })
+    }
 
     startTimeRef.current = Date.now()
     setPlayingId(id)
@@ -64,11 +93,13 @@ export function useAudioPlayer(): UseAudioPlayerReturn {
       }
     }, 200)
 
-    audio.addEventListener('ended', () => {
+    const onEnded = () => {
       if (timerRef.current) clearInterval(timerRef.current)
       setPlayingId(null)
       setProgress(0)
-    })
+    }
+    endedHandler = onEnded
+    audio.addEventListener('ended', onEnded)
   }, [])
 
   const pause = useCallback(() => {

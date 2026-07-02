@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: 'Is there a difference between the Free and Creator plan license?',
-    a: "No. All tracks in the Torch Studio catalog use the same CC0 license regardless of which plan you're on. The difference between plans is the number of downloads per month (Creator: 30/month, Pro: unlimited) and the available audio formats (Creator: MP3, Pro: MP3 + WAV). The license terms are identical.",
+    a: "No. All tracks in the Torch Studio catalog use the same CC0 license regardless of which plan you're on. The difference between plans is how you access downloads — Free users buy individual tracks per-track; Creator gets 30 downloads/month; Pro gets unlimited downloads plus WAV files in addition to MP3. The license terms are identical across all plans.",
   },
   {
     q: 'Can I use tracks in paid client work?',
@@ -53,7 +53,7 @@ const faqs = [
   },
   {
     q: 'What audio formats are available?',
-    a: 'Free and Creator plan users receive MP3 files at 320kbps. Pro plan users receive both MP3 (320kbps) and WAV (24-bit/48kHz) files. Both formats use the same CC0 license.',
+    a: 'Free and Creator plan users receive MP3 files at 320kbps. Pro plan users receive both MP3 (320kbps) and WAV (24-bit/48kHz) files. All formats carry the same CC0 license.',
   },
   {
     q: 'Can I use tracks in broadcast TV or radio?',

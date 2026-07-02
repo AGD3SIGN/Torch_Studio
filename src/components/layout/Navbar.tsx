@@ -15,10 +15,11 @@ function NavLinkItem({ label, href, isHash, onClick }: {
   label: string
   href: string
   isHash: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick?: (e?: any) => void
+  onClick?: (e: React.MouseEvent) => void
 }) {
-  const cls = 'px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150'
+  /* Restrained, formal nav link styling — no pill/rounded background */
+  const cls =
+    'px-3 py-1.5 text-sm font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors duration-150 border-b-2 border-transparent hover:border-primary/40'
 
   if (isHash) {
     return (
@@ -31,7 +32,9 @@ function NavLinkItem({ label, href, isHash, onClick }: {
   return (
     <NavLink
       to={href}
-      className={({ isActive }) => cn(cls, isActive && 'text-foreground bg-secondary')}
+      className={({ isActive }) =>
+        cn(cls, isActive && 'text-foreground border-primary')
+      }
       onClick={onClick}
     >
       {label}
@@ -57,7 +60,7 @@ function UserMenu() {
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-secondary transition-colors duration-150"
+        className="flex items-center gap-2 px-2 py-1.5 hover:bg-secondary transition-colors duration-150"
         aria-label="Account menu"
         aria-expanded={open}
         aria-haspopup="true"
@@ -72,7 +75,7 @@ function UserMenu() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} aria-hidden="true" />
-          <div className="absolute right-0 top-full mt-1 z-50 w-48 rounded-xl border border-border bg-background shadow-warm-md py-1">
+          <div className="absolute right-0 top-full mt-1 z-50 w-48 border border-border bg-background shadow-warm-md py-1">
             <div className="px-3 py-2 border-b border-border">
               <p className="text-xs font-medium text-foreground">{user.name}</p>
               <p className="text-xs text-muted-foreground truncate">{user.email}</p>
@@ -120,35 +123,34 @@ export function Navbar() {
 
   const closeMobile = () => setMobileOpen(false)
 
-  // Smart Browse: scroll on homepage, navigate on other pages
+  /* Smart Browse: scroll on homepage, navigate on other pages */
   const handleBrowseClick = (e: React.MouseEvent, href: string) => {
-    if (href === '/catalog') return // let NavLink handle it
+    if (href === '/catalog') return
     if (href.startsWith('/#')) {
       if (location.pathname === '/') {
         e.preventDefault()
         const id = href.slice(2)
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
       }
-      // else: native <a> navigation to /#section works across pages
     }
   }
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="section-container">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
+        <div className="flex h-14 items-center justify-between">
+          {/* Logo — wordmark with flame icon */}
           <Link to="/" className="flex items-center gap-2.5 group" aria-label="Torch Studio home">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary transition-all duration-200 group-hover:bg-accent">
-              <Flame className="h-5 w-5 text-primary-foreground" strokeWidth={1.75} />
+            <div className="flex h-8 w-8 items-center justify-center bg-primary transition-colors duration-200 group-hover:bg-accent">
+              <Flame className="h-4.5 w-4.5 text-primary-foreground" strokeWidth={1.75} />
             </div>
-            <span className="font-display text-xl font-bold tracking-tight text-foreground">
+            <span className="font-display text-lg font-bold tracking-tight text-foreground uppercase letter-spacing-wider">
               Torch Studio
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+          {/* Desktop nav — flat link row, no pill backgrounds */}
+          <nav className="hidden md:flex items-center gap-6 h-full" aria-label="Main navigation">
             {navLinks.map((link) => (
               <NavLinkItem
                 key={link.label}
@@ -164,21 +166,19 @@ export function Navbar() {
               <UserMenu />
             ) : (
               <>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-muted-foreground hover:text-foreground font-medium"
+                <button
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-150 px-2 py-1"
                   onClick={() => navigate('/sign-in')}
                 >
                   Sign in
-                </Button>
-                <Button
-                  size="sm"
-                  className="bg-primary text-primary-foreground hover:bg-accent font-semibold transition-colors duration-200"
+                </button>
+                {/* Primary CTA — sharp corners, formal feel */}
+                <button
+                  className="h-9 px-5 bg-primary text-primary-foreground hover:bg-accent font-semibold text-sm transition-colors duration-200 tracking-wide"
                   onClick={handleStartFree}
                 >
                   Start free
-                </Button>
+                </button>
               </>
             )}
           </div>
@@ -223,13 +223,13 @@ export function Navbar() {
                 <>
                   <Button
                     variant="outline"
-                    className="w-full font-medium"
+                    className="w-full font-medium rounded-none"
                     onClick={() => { navigate('/sign-in'); closeMobile() }}
                   >
                     Sign in
                   </Button>
                   <Button
-                    className="w-full bg-primary text-primary-foreground hover:bg-accent font-semibold"
+                    className="w-full bg-primary text-primary-foreground hover:bg-accent font-semibold rounded-none"
                     onClick={() => { handleStartFree(); closeMobile() }}
                   >
                     Start free

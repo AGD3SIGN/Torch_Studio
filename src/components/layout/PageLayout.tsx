@@ -5,9 +5,11 @@ import { Footer } from '@/components/sections/Sections'
 interface PageLayoutProps {
   title: string
   children: ReactNode
+  /** Optional extra padding class. Defaults to section-container + py-12. */
+  contentClass?: string
 }
 
-export function PageLayout({ title, children }: PageLayoutProps) {
+export function PageLayout({ title, children, contentClass }: PageLayoutProps) {
   useEffect(() => {
     document.title = title
   }, [title])
@@ -15,7 +17,7 @@ export function PageLayout({ title, children }: PageLayoutProps) {
   return (
     <>
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" className={contentClass}>
         {children}
       </main>
       <Footer />
